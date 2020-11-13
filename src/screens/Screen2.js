@@ -9,10 +9,13 @@ import {
 } from "react-native";
 
 const Screen2 = ({ route }) => {
+  //GET THE ARRAY FROM THE FIRST SCREEN
   const { array } = route.params;
+  //SORT THE ARRAY OF OBJECTS BY THE NUMBER OF STARS
   array.sort(function (a, b) {
     return parseFloat(b.stargazers_count) - parseFloat(a.stargazers_count);
   });
+  //LIMIT THE ARRAY LENGTH TO 10 ONLY IF THE INITIAL LENGTH IS > 10
   array.length > 10 ? (array.length = 10) : "";
   return (
     <SafeAreaView>
@@ -23,8 +26,8 @@ const Screen2 = ({ route }) => {
       ) : (
         <>
           <View style={styles.listHeader}>
-            <Text style={styles.listName}>Name</Text>
-            <Text style={styles.listName}>Number of stars</Text>
+            <Text style={styles.listName}>Repo Name</Text>
+            <Text style={styles.listName}>Stars count</Text>
           </View>
           <FlatList
             contentContainerStyle={{ paddingBottom: 45 }}

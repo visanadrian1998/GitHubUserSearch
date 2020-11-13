@@ -1,4 +1,3 @@
-import { StatusBar } from "expo-status-bar";
 import React, { useState } from "react";
 import {
   NavigationContainer,
@@ -8,18 +7,18 @@ import {
 import { createStackNavigator } from "@react-navigation/stack";
 import Screen1 from "./src/screens/Screen1";
 import Screen2 from "./src/screens/Screen2";
-import { StyleSheet, Text, View, Button } from "react-native";
+import { View } from "react-native";
 import ToggleSwitch from "toggle-switch-react-native";
-
+import Sun from "./assets/sun";
 const { Navigator, Screen } = createStackNavigator();
 
 export default function App() {
-  const [boolean, setBoolean] = useState(false);
+  const [boolean, setBoolean] = useState(true);
 
   return (
-    <NavigationContainer theme={boolean === true ? DarkTheme : DefaultTheme}>
+    <NavigationContainer theme={boolean === false ? DarkTheme : DefaultTheme}>
       <Navigator
-        initialRouteName="Screen1"
+        initialRouteName="Home"
         screenOptions={{
           headerRight: () => (
             <View
@@ -29,11 +28,15 @@ export default function App() {
                 paddingRight: 10,
               }}
             >
+              <Sun
+                style={{
+                  marginRight: 3,
+                }}
+              />
               <ToggleSwitch
                 isOn={boolean}
-                onColor="white"
-                offColor="black"
-                labelStyle={{ color: "black", fontWeight: "900" }}
+                onColor="black"
+                offColor="#009688"
                 size="medium"
                 onToggle={() => setBoolean(!boolean)}
               />
@@ -41,18 +44,9 @@ export default function App() {
           ),
         }}
       >
-        <Screen name="Screen1" component={Screen1} options={{}} />
-        <Screen name="Screen2" component={Screen2} />
+        <Screen name="Home" component={Screen1} />
+        <Screen name="Results" component={Screen2} />
       </Navigator>
     </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});

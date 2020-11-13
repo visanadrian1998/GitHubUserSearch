@@ -10,24 +10,25 @@ const Screen1 = () => {
 
   const onChange = (e) => {
     setText(e.nativeEvent.text);
+    //ERROR MESSAGE DISAPPEARS WHENEVER WE TYPE
     setError(null);
   };
 
   const onSubmit = () => {
-    //console.log("text", text);
+    //ERROR MESSAGE DISAPPEARS WHEN PRESSING THE BUTTON
     setError(null);
+    //GET THE DATA FROM GITHUB API
     fetch(`https://api.github.com/users/${text}/repos`)
       .then((res) => res.json())
       .then((data) => {
+        //IF THE OBJECT HAS A MESSAGE PROPERTY, THAT MEANS THAT THE USER WAS NOT FOUND
         if (data.message) {
           setError("User not found");
         } else {
-          navigation.navigate("Screen2", { array: data });
+          navigation.navigate("Results", { array: data });
           setError(null);
         }
-        //console.log("data", data);
-      })
-      .then();
+      });
   };
 
   return (
